@@ -1,0 +1,65 @@
+name: Sync repo traffic stats
+
+# Runs daily, plus on-demand. Pulls real "views" data (last 14 days,
+# GitHub's own retention window) for every non-fork public repo and
+# writes it to data/traffic.json, which the site fetches at runtime.
+# This is the only way to get real view counts, since GitHub's
+# traffic API requires auth and can't be called from a public
+# browser page without exposing a token.
+
+on:
+  schedule:
+    - cron: "17 3 * * *"   # once a day
+  workflow_dispatch: {}     # lets you trigger it manually from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  sync-traffic:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch traffic data
+        env:
+          # Create a fine-grained Personal Access Token with
+          # "Administration: Read" on your repos (traffic stats live
+          # under repo administration), then add it as a repo secret
+          # named TRAFFIC_PAT. See README.md for step-by-step setup.
+          GH_TOKEN: ${{ secrets.TRAFFIC_PAT }}
+          GH_USER: Sam3360
+        run: |
+          set -e
+          echo "{}" > data/traffic.json
+
+          repos=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/users/$GH_USER/repos?per_page=100&type=owner" \
+            | jq -r '.[] | select(.fork==false) | .name')
+
+          result="{}"
+          for repo in $repos; do
+            views_json=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/$GH_USER/$repo/traffic/views")
+
+            count=$(echo "$views_json" | jq -r '.count // 0')
+            uniques=$(echo "$views_json" | jq -r '.uniques // 0')
+
+            result=$(echo "$result" | jq \
+              --arg name "$repo" \
+              --argjson views "$count" \
+              --argjson uniques "$uniques" \
+              --arg updated "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+              '. + {($name): {views: $views, uniques: $uniques, updated_at: $updated}}')
+          done
+
+          echo "$result" | jq '.' > data/traffic.json
+
+      - name: Commit updated stats
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: sync traffic stats [automated]"
+          file_pattern: data/traffic.json

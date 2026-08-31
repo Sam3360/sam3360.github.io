@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samarth Chugh (Sam3360)</title>
+<meta name="description" content="Samarth Chugh — Sam3360. Student developer. Live GitHub stats and projects.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%230B0E13%22/><text x=%2250%22 y=%2264%22 font-size=%2244%22 text-anchor=%22middle%22 fill=%22%23E8A33D%22 font-family=%22monospace%22>S</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="identity">
+      <img class="avatar" id="avatar" src="" alt="Sam3360 avatar">
+      <div>
+        <h1>Samarth Chugh</h1>
+        <div class="handle">@Sam3360</div>
+        <div class="role">Student, Arya Vidya Mandir</div>
+      </div>
+    </div>
+
+    <div class="status-row">
+      <span class="dot live"></span>
+      <span id="api-status">syncing with github…</span>
+    </div>
+
+    <div class="age-box">
+      <span class="age-label">age</span>
+      <span class="age-value" id="age-value">—</span>
+    </div>
+
+    <nav class="filetree">
+      <a href="#about">about<span class="ext">.md</span></a>
+      <a href="#stats">stats<span class="ext">.json</span></a>
+      <a href="#repos">top-repos<span class="ext">.js</span></a>
+      <a href="#languages">languages<span class="ext">.yml</span></a>
+      <a href="#contact">contact<span class="ext">.sh</span></a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a class="btn" href="https://github.com/Sam3360" target="_blank" rel="noopener">github.com/Sam3360</a>
+      <a class="btn primary" href="https://sam3360.github.io/ContactMe" target="_blank" rel="noopener">get in touch →</a>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main>
+
+    <!-- ABOUT -->
+    <section class="pane" id="about">
+      <div class="pane-head"><span class="filename">about.md</span><span class="line"></span></div>
+      <h2 class="big">Samarth Chugh, building things as Sam3360.</h2>
+      <p class="lede" id="bio-text">Loading bio from GitHub…</p>
+      <p class="bio-source" id="bio-source"></p>
+    </section>
+
+    <!-- STATS -->
+    <section class="pane" id="stats">
+      <div class="pane-head"><span class="filename">stats.json</span><span class="line"></span></div>
+      <div class="stat-grid" id="stat-grid">
+        <div class="stat"><span class="num skeleton">00</span><span class="lbl">public repos</span></div>
+        <div class="stat"><span class="num skeleton">00</span><span class="lbl">followers</span></div>
+        <div class="stat"><span class="num skeleton">00</span><span class="lbl">following</span></div>
+        <div class="stat"><span class="num skeleton">00</span><span class="lbl">total stars</span></div>
+        <div class="stat"><span class="num skeleton">00</span><span class="lbl">on github since</span></div>
+      </div>
+    </section>
+
+    <!-- TOP REPOS -->
+    <section class="pane" id="repos">
+      <div class="pane-head"><span class="filename">top-repos.js</span><span class="line"></span></div>
+      <p class="repo-note" id="repo-note">Ranking by real GitHub traffic views…</p>
+      <div class="repo-list" id="repo-list">
+        <div class="repo-card"><span class="skeleton">Loading repositories from the GitHub API…</span></div>
+      </div>
+    </section>
+
+    <!-- LANGUAGES -->
+    <section class="pane" id="languages">
+      <div class="pane-head"><span class="filename">languages.yml</span><span class="line"></span></div>
+      <div class="lang-list" id="lang-list">
+        <div class="lang-row"><span class="lname skeleton">Loading</span></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="pane" id="contact">
+      <div class="pane-head"><span class="filename">contact.sh</span><span class="line"></span></div>
+      <div class="contact-panel">
+        <p>The fastest way to reach me is the contact page below — it's got everything you need to say hi, ask a question, or talk about a project.</p>
+        <a class="btn primary" href="https://sam3360.github.io/ContactMe" target="_blank" rel="noopener">sam3360.github.io/ContactMe →</a>
+      </div>
+    </section>
+
+    <footer class="site-foot">
+      <span>built from scratch — html / css / vanilla js</span>
+      <span id="last-sync">stats live from api.github.com</span>
+    </footer>
+
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
